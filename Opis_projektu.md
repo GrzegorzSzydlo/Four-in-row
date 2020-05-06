@@ -1,8 +1,7 @@
 # Four-in-row
 Opis zadania
 ○ Okno wyświetlające siatkę 7 kolumn x 6 wierszy, przycisk nad każdą kolumną,
-informację “Tura gracza 1” lub “Tura gracza 2”, przycisk do resetowania gry
-oraz rozwijalną listę wyboru reguł gry.
+informację “Tura gracza 1” lub “Tura gracza 2”, przycisk do resetowania gry oraz rozwijalną listę wyboru reguł gry.
 ○ Początkowo pola siatki są puste.
 ○ Gracze na zmianę wrzucają monety do wybranych przez siebie kolumn.
 ○ Pola w których jest moneta gracza 1 są czerwone, pola z monetami gracza 2
