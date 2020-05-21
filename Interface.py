@@ -9,6 +9,7 @@ class Interface:
     label_player1 = ""
     label_player2 = ""
 
+    #Tworzenie okna głównego
     def main_window(self, master):
         master.title("For in row")
         master.resizable(width=False, height=False)
@@ -24,21 +25,24 @@ class Interface:
 
         master.mainloop()
 
+    #Przycisk na zmianę imienia
     def change_name_button(self, master):
         frame = Frame(master)
         button = Button(frame, text="Zmiana imienia", command=lambda: self.on_name_button(master))
         button.pack()
         frame.pack(side=TOP)
 
+    #Akcja jaka odbywa się po wciśnięciu przycisku name_button
     def on_name_button(self, master):
         window = NameWindow(master, self.label_player1, self.label_player2)
         window.name_window()
 
+    #Ramkia z imionami graczy
     def name_label(self, master):
         player_name = Frame(master)
         self.label_player1 = Label(player_name, text="Player 1")
         self.label_player1.pack(side=LEFT)
-        self.label_player2 = Label(player_name, text="Player 2w")
+        self.label_player2 = Label(player_name, text="Player 2")
         self.label_player2.pack(side=RIGHT)
         player_name.pack(side=TOP)
         master.update()

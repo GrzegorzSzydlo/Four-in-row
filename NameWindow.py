@@ -15,6 +15,7 @@ class NameWindow:
         self.label1 = label1
         self.label2 = label2
 
+    #Tworzenie drugiego okna
     def name_window(self):
         child = Toplevel(self.parent)
         child.title("Zmiana imion")
@@ -31,6 +32,7 @@ class NameWindow:
 
         child.mainloop()
 
+    #Pobranie imion graczy
     def frame_description(self, master):
         frame = Frame(master)
         frame_player1 = Frame(frame)
