@@ -1,5 +1,6 @@
 from tkinter import *
 from Interface import Interface
+from GameArea import GameArea
 
 
 class Main:
@@ -8,6 +9,7 @@ class Main:
     def __init__(self):
         t = Interface()
         t.main_window(self.master)
+
 
 
 def __main__():
