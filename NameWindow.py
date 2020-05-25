@@ -60,6 +60,8 @@ class NameWindow:
     def zmiana_imienia(self, name1, name2):
         self.label1.configure(text=name1.get())
         self.label2.configure(text=name2.get())
+        self.player1 = name1.get()
+        self.player2 = name2.get()
 
     def on_ok_button(self, master):
         self.zmiana_imienia(self.entry_player1, self.entry_player2)
