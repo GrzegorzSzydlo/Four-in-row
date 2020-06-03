@@ -15,6 +15,7 @@ class LogicArea:
         self.frame = frame
 
     def logic_main(self):
+        """obszar po prawej stronie okna"""
         self.frame1 = Frame(self.frame, width=WINDOW_WIDTH, height=WINDOW_HEIGHT * 0.75, background="#ffffff")
         self.frame1.pack(side=TOP, pady=80)
         self.frame2 = Frame(self.frame, width=WINDOW_WIDTH, height=WINDOW_HEIGHT * 0.25, background="#ffffff")
@@ -25,18 +26,18 @@ class LogicArea:
 
         self.quit_button(self.frame2)
 
-    # Przycisk na zmianę imienia
     def change_name_button(self, frame1, frame2):
+        """Przycisk na zmianę imienia"""
         button = Button(frame2, text="Zmiana imienia", width=WINDOW_WIDTH, height=2, command=lambda: self.on_name_button(frame1))
         button.pack(side=TOP, pady=10)
 
-    # Akcja jaka odbywa się po wciśnięciu przycisku name_button
     def on_name_button(self, master):
+        """Akcja jaka odbywa się po wciśnięciu przycisku name_button"""
         window = NameWindow(master, self.label_player1, self.label_player2)
         window.name_window()
 
-    # Ramka z imionami graczy
     def name_label(self, master):
+        """Ramka z imionami graczy"""
         label1 = Label(master, text="Player 1", width=WINDOW_WIDTH, height=2, font=("Times new roman", 20),
                        background="#ffffff")
         label1.pack(side=TOP)

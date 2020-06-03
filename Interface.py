@@ -1,16 +1,14 @@
 from tkinter import *
-from NameWindow import NameWindow
 from GameArea import GameArea
 from LogicArea import LogicArea
 
 WINDOW_HEIGHT = 600
 WINDOW_WIDTH = 750
 
-
 class Interface:
 
-    # Tworzenie okna głównego
     def main_window(self, master):
+        """Tworzenie okna głównego"""
         master.title("For in row")
         master.resizable(width=False, height=False)
 

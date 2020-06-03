@@ -15,8 +15,8 @@ class NameWindow:
         self.label1 = label1
         self.label2 = label2
 
-    #Tworzenie drugiego okna
     def name_window(self):
+        """"Tworzenie drugiego okna"""
         child = Toplevel(self.parent)
         child.title("Zmiana imion")
         child.resizable(width=False, height=False)
@@ -32,8 +32,8 @@ class NameWindow:
 
         child.mainloop()
 
-    #Pobranie imion graczy
     def frame_description(self, master):
+        """Pobranie imion graczy"""
         frame = Frame(master)
         frame_player1 = Frame(frame)
         label_player1 = Label(frame_player1, text="Player 1")
@@ -57,12 +57,15 @@ class NameWindow:
         button.pack()
         frame.pack(side=TOP)
 
-    def zmiana_imienia(self, name1, name2):
-        self.label1.configure(text=name1.get())
-        self.label2.configure(text=name2.get())
-        self.player1 = name1.get()
-        self.player2 = name2.get()
-
     def on_ok_button(self, master):
         self.zmiana_imienia(self.entry_player1, self.entry_player2)
         master.destroy()
+
+    def zmiana_imienia(self, name1, name2):
+        """Dokonanie zmian imion jeśli pola nie są puste"""
+        if name1.get():
+            self.label1.configure(text=name1.get())
+            self.player1 = name1.get()
+        if name2.get():
+            self.label2.configure(text=name2.get())
+            self.player2 = name2.get()

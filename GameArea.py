@@ -17,6 +17,7 @@ class GameArea:
         self.action.wypiszTablice(self.table)
 
     def frame_game(self):
+        """Tworzenie obszaru gry"""
         frame_main = Frame(self.master, width=WINDOW_WIDTH, height=WINDOW_HEIGHT)
         frame1 = Frame(frame_main)
         canvas1 = Canvas(frame1, width=WINDOW_WIDTH, height=float((1 / 7) * WINDOW_HEIGHT),

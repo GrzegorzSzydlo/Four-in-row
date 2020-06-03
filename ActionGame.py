@@ -41,21 +41,21 @@ class ActionGame:
                 return r
 
     def wygrywajacyRuch(self, tab, kto):
-        # sprawdzam w poziomie
+        """sprawdzam w poziomie"""
         for c in range(COLUMN_COUNT - 3):
             for r in range(ROW_COUNT):
                 if tab[r][c] == kto and tab[r][c + 1] == kto \
                         and tab[r][c + 2] == kto and tab[r][c + 3] == kto:
                     return True
 
-        # sprawdzam w pionowie
+        """sprawdzam w pionowie"""
         for c in range(COLUMN_COUNT):
             for r in range(ROW_COUNT - 3):
                 if tab[r][c] == kto and tab[r + 1][c] == kto \
                         and tab[r + 2][c] == kto and tab[r + 3][c] == kto:
                     return True
 
-        # sprawdzam przekątną dodatnią
+        """sprawdzam przekątną dodatnią"""
         for c in range(COLUMN_COUNT - 3):
             for r in range(ROW_COUNT - 3):
                 if tab[r][c] == kto and tab[r + 1][c + 1] == kto \
@@ -63,7 +63,7 @@ class ActionGame:
                         and tab[r + 3][c + 3] == kto:
                     return True
 
-        # sprawdzam przekątną ujemną
+        """sprawdzam przekątną ujemną"""
         for c in range(COLUMN_COUNT - 3):
             for r in range(3, ROW_COUNT):
                 if tab[r][c] == kto and tab[r - 1][c + 1] == kto \
@@ -72,6 +72,7 @@ class ActionGame:
                     return True
 
     def game(self, tab, canvas1, canvas2, event):
+        """Sprawdzenie lokalizacji oraz dokonanie ruchu gracza"""
         if not self.gameover:
             if self.turn == 0:
                 column = int(math.floor(event.x / SIZE_W))
@@ -106,6 +107,7 @@ class ActionGame:
         self.draw(tab, canvas1)
 
     def draw_circle(self, table, canvas2):
+        """Rysowanie obszaru gry"""
         canvas2.delete(ALL)
         for column in range(COLUMN_COUNT):
             for row in range(ROW_COUNT):
@@ -153,6 +155,7 @@ class ActionGame:
                            font=("Times new roman", 40))
 
     def draw(self, table, canvas):
+        """"Informacja o remisie"""
         iter = 0
         for c in range(COLUMN_COUNT):
             if table[ROW_COUNT - 1][c] == 0:
