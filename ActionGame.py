@@ -15,90 +15,85 @@ SIZE_W = WINDOW_WIDTH / 7
 
 class ActionGame:
     turn = 0
-    gameover = False
+    game_over = False
     coord = []
     id_circle = 0
 
     def __init__(self, logic):
         self.logic = logic
 
-    def createTablica(self):
+    def initialize_table(self):
         table = np.zeros((ROW_COUNT, COLUMN_COUNT), dtype=int)
         return table
 
-    def wypiszTablice(self, tab):
-        print(np.flip(tab, 0))
+    def set_move(self, table, row, col, player_id):
+        table[row][col] = player_id
 
-    def ustawRuch(self, tab, row, col, kto):
-        tab[row][col] = kto
-
-    def wybranaLokalizacja(self, tab, col):
+    def is_column_available(self, tab, col):
         return tab[ROW_COUNT - 1][col] == 0
 
-    def kolejnyDostepnyWiersz(self, tab, col):
+    def is_row_available(self, tab, col):
         for r in range(ROW_COUNT):
             if tab[r][col] == 0:
                 return r
 
-    def wygrywajacyRuch(self, tab, kto):
+    def is_wining_move(self, tab, player_id):
         """sprawdzam w poziomie"""
         for c in range(COLUMN_COUNT - 3):
             for r in range(ROW_COUNT):
-                if tab[r][c] == kto and tab[r][c + 1] == kto \
-                        and tab[r][c + 2] == kto and tab[r][c + 3] == kto:
+                if tab[r][c] == player_id and tab[r][c + 1] == player_id \
+                        and tab[r][c + 2] == player_id and tab[r][c + 3] == player_id:
                     return True
 
         """sprawdzam w pionowie"""
         for c in range(COLUMN_COUNT):
             for r in range(ROW_COUNT - 3):
-                if tab[r][c] == kto and tab[r + 1][c] == kto \
-                        and tab[r + 2][c] == kto and tab[r + 3][c] == kto:
+                if tab[r][c] == player_id and tab[r + 1][c] == player_id \
+                        and tab[r + 2][c] == player_id and tab[r + 3][c] == player_id:
                     return True
 
         """sprawdzam przekątną dodatnią"""
         for c in range(COLUMN_COUNT - 3):
             for r in range(ROW_COUNT - 3):
-                if tab[r][c] == kto and tab[r + 1][c + 1] == kto \
-                        and tab[r + 2][c + 2] == kto \
-                        and tab[r + 3][c + 3] == kto:
+                if tab[r][c] == player_id and tab[r + 1][c + 1] == player_id \
+                        and tab[r + 2][c + 2] == player_id \
+                        and tab[r + 3][c + 3] == player_id:
                     return True
 
         """sprawdzam przekątną ujemną"""
         for c in range(COLUMN_COUNT - 3):
             for r in range(3, ROW_COUNT):
-                if tab[r][c] == kto and tab[r - 1][c + 1] == kto \
-                        and tab[r - 2][c + 2] == kto and \
-                        tab[r - 3][c + 3] == kto:
+                if tab[r][c] == player_id and tab[r - 1][c + 1] == player_id \
+                        and tab[r - 2][c + 2] == player_id and \
+                        tab[r - 3][c + 3] == player_id:
                     return True
 
     def game(self, tab, canvas1, canvas2, event):
         """Sprawdzenie lokalizacji oraz dokonanie ruchu gracza"""
-        if not self.gameover:
+        if not self.game_over:
             if self.turn == 0:
                 column = int(math.floor(event.x / SIZE_W))
-                if self.wybranaLokalizacja(tab, column):
-                    row = self.kolejnyDostepnyWiersz(tab, column)
-                    self.ustawRuch(tab, row, column, 1)
-                    self.wypiszTablice(tab)
+                if self.is_column_available(tab, column):
+                    row = self.is_row_available(tab, column)
+                    self.set_move(tab, row, column, 1)
                     self.draw_circle(tab, canvas2)
 
-                    if self.wygrywajacyRuch(tab, 1):
+                    if self.is_wining_move(tab, 1):
                         self.winner(canvas1, self.logic.label_player1["text"])
-                        self.gameover = True
+                        self.game_over = True
                 else:
                     self.turn -= 1
 
             else:
                 column = int(math.floor(event.x / SIZE_W))
-                if self.wybranaLokalizacja(tab, column):
-                    row = self.kolejnyDostepnyWiersz(tab, column)
-                    self.ustawRuch(tab, row, column, 2)
-                    self.wypiszTablice(tab)
+                if self.is_column_available(tab, column):
+                    row = self.is_row_available(tab, column)
+                    self.set_move(tab, row, column, 2)
                     self.draw_circle(tab, canvas2)
 
-                    if self.wygrywajacyRuch(tab, 2):
+                    if self.is_wining_move(tab, 2):
                         self.winner(canvas1, self.logic.label_player2["text"])
-                        self.gameover = True
+                        self.game_over = True
                 else:
                     self.turn -= 1
 
@@ -141,7 +136,7 @@ class ActionGame:
             canvas.itemconfig(self.id_circle, fill="yellow")
 
     def move_circle(self, canvas, event):
-        if not self.gameover:
+        if not self.game_over:
             x, y = event.x, event.y
             canvas.coords(self.id_circle, (x - (SIZE_W / 2), 0, x + (SIZE_W / 2), SIZE_H))
             if self.turn == 0:
@@ -149,9 +144,9 @@ class ActionGame:
             if self.turn == 1:
                 canvas.itemconfig(self.id_circle, fill="yellow")
 
-    def winner(self, canvas, kto):
+    def winner(self, canvas, player_id):
         canvas.delete(self.id_circle)
-        canvas.create_text((WINDOW_WIDTH / 2, SIZE_H / 2), text=("Wygrywa: {}".format(kto)), fill="orange",
+        canvas.create_text((WINDOW_WIDTH / 2, SIZE_H / 2), text=("Wygrywa: {}".format(player_id)), fill="orange",
                            font=("Times new roman", 40))
 
     def draw(self, table, canvas):
@@ -177,7 +172,7 @@ class ActionGame:
                 table[row][column] = 0
 
         self.turn = 0
-        self.gameover = False
+        self.game_over = False
         canvas1.delete(ALL)
         self.one_circle(canvas1)
         self.draw_circle(table, canvas2)

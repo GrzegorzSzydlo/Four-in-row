@@ -5,8 +5,8 @@ WINDOW_WIDTH = 250
 
 
 class NameWindow:
-    player1 = "Player 1"
-    player2 = "Player 2"
+    default_player1 = "Player 1"
+    default_player2 = "Player 2"
     entry_player1 = ""
     entry_player2 = ""
 
@@ -23,9 +23,9 @@ class NameWindow:
 
         screen_width = child.winfo_screenwidth()
         screen_height = child.winfo_screenheight()
-        x_cordinate = int((screen_width / 2) - (WINDOW_WIDTH / 2))
-        y_cordinate = int((screen_height / 2) - (WINDOW_HEIGHT / 2))
-        child.geometry("{}x{}+{}+{}".format(WINDOW_WIDTH, WINDOW_HEIGHT, x_cordinate, y_cordinate))
+        x_coordinate = int((screen_width / 2) - (WINDOW_WIDTH / 2))
+        y_coordinate = int((screen_height / 2) - (WINDOW_HEIGHT / 2))
+        child.geometry("{}x{}+{}+{}".format(WINDOW_WIDTH, WINDOW_HEIGHT, x_coordinate, y_coordinate))
 
         self.frame_description(child)
         self.button_ok(child)
@@ -58,14 +58,14 @@ class NameWindow:
         frame.pack(side=TOP)
 
     def on_ok_button(self, master):
-        self.zmiana_imienia(self.entry_player1, self.entry_player2)
+        self.rename_user(self.entry_player1, self.entry_player2)
         master.destroy()
 
-    def zmiana_imienia(self, name1, name2):
+    def rename_user(self, name1, name2):
         """Dokonanie zmian imion jeśli pola nie są puste"""
         if name1.get():
             self.label1.configure(text=name1.get())
-            self.player1 = name1.get()
+            self.default_player1 = name1.get()
         if name2.get():
             self.label2.configure(text=name2.get())
-            self.player2 = name2.get()
+            self.default_player2 = name2.get()

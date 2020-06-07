@@ -28,7 +28,8 @@ class LogicArea:
 
     def change_name_button(self, frame1, frame2):
         """Przycisk na zmianę imienia"""
-        button = Button(frame2, text="Zmiana imienia", width=WINDOW_WIDTH, height=2, command=lambda: self.on_name_button(frame1))
+        button = Button(frame2, text="Zmiana imienia",
+                        width=WINDOW_WIDTH, height=2, command=lambda: self.on_name_button(frame1))
         button.pack(side=TOP, pady=10)
 
     def on_name_button(self, master):
